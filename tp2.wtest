@@ -14,10 +14,77 @@ describe " Camion y Cosas"{
         assert.equals(#{knightRider}, camion.cosas())
         camion.descargar(bumblebee)
         assert.equals(#{knightRider}, camion.cosas())
-
-        
-
-
-
     }
+    test "Todo Peso es Par Si y hay alguna que pese 50 No" {
+         camion.cargar(bumblebee)
+         arenaAGranel.configurarPeso(50)
+         camion.cargar(arenaAGranel)
+         assert.that(camion.todoPesoEsPar())
+         assert.that(camion.hayAlgoQuePesa(50))
+    }
+    test "Todo Peso es Par No y hay alguna que pesa 50 No" {
+         camion.cargar(bumblebee)
+         arenaAGranel.configurarPeso(51)
+         camion.cargar(arenaAGranel)
+         assert.notThat(camion.todoPesoEsPar())
+    }
+      test "Peso y Exceso de peso No" {
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(300)
+         camion.cargar(ladrillos)
+         assert.equals(2400, camion.pesoTotalCamion())
+         assert.notThat(camion.estaExcedidoEnPeso())
+    }
+     test "Peso y Exceso de peso Si" {
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(400)
+         camion.cargar(ladrillos)
+         assert.equals(2600, camion.pesoTotalCamion())
+         assert.that(camion.estaExcedidoEnPeso())   
+    }
+    test "Niveles de peligrosidad 1" {
+         camion.cargar(bumblebee)
+         camion.cargar(bateriaAntiaerea)
+         camion.cargar(residuosRadioactivos)
+         assert.equals(bateriaAntiaerea, camion.cosasConNivelDePeligrosidadDe(0))
+         assert.equals(bumblebee, camion.cosasConNivelDePeligrosidadDe(15))
+         assert.equals(residuosRadioactivos, camion.cosasConNivelDePeligrosidadDe(200))
+         assert.throwsException({ camion.cosasConNivelDePeligrosidadDe(30) })
+         bumblebee.transformarEnRobot()
+         assert.equals(bumblebee, camion.cosasConNivelDePeligrosidadDe(30))
+         bateriaAntiaerea.ponerMisiles()
+         assert.equals(bateriaAntiaerea, camion.cosasConNivelDePeligrosidadDe(100))
+    }
+    test "Niveles de Peligrosidad 2 " {
+         camion.cargar(knightRider)
+         bateriaAntiaerea.ponerMisiles()
+         camion.cargar(bateriaAntiaerea)
+         assert.equals(#{bateriaAntiaerea}, camion.cosasConNivelDePeligrosidadMayorA(15))
+         assert.equals(#{bateriaAntiaerea}, camion.cosasConMayorNivelDePeligrosidadQue(bumblebee))
+         assert.equals(#{knightRider, bateriaAntiaerea}, camion.cosasConNivelDePeligrosidadMayorA(2))
+     
+    }
+     test "Puede circular en ruta Si " {  
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(300)
+         camion.cargar(ladrillos)
+         assert.that(camion.puedeCircularEnRuta(20))  
+    }
+     test "Puede circular en ruta No 1 " {  
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(400)
+         camion.cargar(ladrillos)
+         assert.notThat(camion.puedeCircularEnRuta(20))   
+    }
+    test "Puede circular en ruta No 2 " {  
+         bumblebee.transformarEnRobot()
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(300)
+         camion.cargar(ladrillos)
+         assert.notThat(camion.puedeCircularEnRuta(20))  
+     }
+
+
+
+    
 }

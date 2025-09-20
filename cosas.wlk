@@ -11,7 +11,7 @@ object arenaAGranel {
 object bumblebee {
 	var esAuto = true
 	method transformarEnAuto(){ esAuto = true}
-	method trnsformarEnRobot() { esAuto = false}
+	method transformarEnRobot() { esAuto = false}
 	method peso() { return 800 }
 	method nivelPeligrosidad() { if (esAuto) {return 15} else {return 30} }
 }
@@ -22,7 +22,7 @@ object ladrillos {
 	method nivelPeligrosidad() { return 2 }
 }
 object bateriaAntiaerea{
-	var estaConMisiles = true
+	var estaConMisiles = false
 	method ponerMisiles() { estaConMisiles = true}
 	method sacarMisiles() { estaConMisiles = false}
 	method peso() { if (estaConMisiles) {return 300} else {return 200}}
