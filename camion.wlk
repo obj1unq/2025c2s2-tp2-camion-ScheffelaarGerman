@@ -33,6 +33,7 @@ import cosas.*
 
 	method tieneAlgoQuePesaEntre(pesoMin, pesoMax) { return cosas.any {cosa=> (cosa.peso()>= pesoMin) && (cosa.peso()<= pesoMax)} }
  
+	method cosaMasPesada() {return cosas.max { cosa => cosa.peso()} }
 
 
  }
