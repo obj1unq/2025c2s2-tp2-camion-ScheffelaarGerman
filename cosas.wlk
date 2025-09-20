@@ -34,3 +34,18 @@ object residuosRadioactivos{
 	method peso() { return peso}
 	method nivelPeligrosidad() { return 200}
 }
+object contenedorPortuario{
+	var property cosas = []
+	const pesoBase = 100
+	method cargarCon(unaCosa){return cosas.add(unaCosa)}
+	method peso() { if (cosas.isEmpty()){ return pesoBase} else {return pesoBase +self.pesoDelaCarga()} }
+	method pesoDelaCarga() {return cosas.sum{cosa => cosa.peso()} }
+	method nivelPeligrosidad() { if (cosas.isEmpty()){ return 0} else {return self.maxNivelPeligrosidadEnLaCarga()} }
+	method maxNivelPeligrosidadEnLaCarga(){return cosas.max{cosa => cosa.nivelPeligrosidad()} }
+} 
+object embalajeDeSeguridad{
+	var contenido = null
+	method embalar(unaCosa){ contenido = unaCosa}
+	method peso(){ return contenido.peso()}
+	method nivelPeligrosidad(){ return contenido.nivelPeligrosidad() / 2}
+}
