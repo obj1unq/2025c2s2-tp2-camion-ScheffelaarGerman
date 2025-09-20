@@ -35,6 +35,8 @@ import cosas.*
  
 	method cosaMasPesada() {return cosas.max { cosa => cosa.peso()} }
 
+	method pesos() { return cosas.map { cosa => cosa.peso()}}
+
 
  }
 

@@ -108,9 +108,13 @@ describe " Camion y Cosas"{
          ladrillos.configurarCantidad(300)
          camion.cargar(ladrillos)
          assert.equals(bumblebee,camion.cosaMasPesada())
-     
-
      }
+     test " Pesos" {
+         camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(300)
+         camion.cargar(ladrillos)
+         assert.equals([800, 600],camion.pesos())
+     } 
 }
 
     
