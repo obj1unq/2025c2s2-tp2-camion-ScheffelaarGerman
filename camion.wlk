@@ -31,10 +31,9 @@ import cosas.*
 
 	method puedeCircularEnRuta(nivel) { return !self.estaExcedidoEnPeso() && self.cosasConNivelDePeligrosidadMayorA(nivel).isEmpty() }
 
+	method tieneAlgoQuePesaEntre(pesoMin, pesoMax) { return cosas.any {cosa=> (cosa.peso()>= pesoMin) && (cosa.peso()<= pesoMax)} }
+ 
+
 
  }
-
-
-
-
 

@@ -82,7 +82,7 @@ describe " Camion y Cosas"{
          camion.cargar(ladrillos)
          assert.notThat(camion.puedeCircularEnRuta(20))  
      }
-     test "Contenedor " {  
+     test "Contenedor y embalaje de seguridad " {  
          assert.equals(100, contenedorPortuario.peso())
          contenedorPortuario.cargarCon(knightRider)
          arenaAGranel.configurarPeso(50)
@@ -94,6 +94,17 @@ describe " Camion y Cosas"{
          embalajeDeSeguridad.embalar(bumblebee)
          assert.equals(800, embalajeDeSeguridad.peso())
          assert.equals(7.5, embalajeDeSeguridad.nivelPeligrosidad())
+     }
+     test " Tiene algo que pesa entre " {
+        camion.cargar(bumblebee)
+         ladrillos.configurarCantidad(300)
+         camion.cargar(ladrillos)
+         assert.notThat(camion.tieneAlgoQuePesaEntre(5,10))
+         assert.that(camion.tieneAlgoQuePesaEntre(5,1000))
+         assert.notThat(camion.tieneAlgoQuePesaEntre(900,1000))
+ 
+
+
      }
 
      }
