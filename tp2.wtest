@@ -114,7 +114,38 @@ describe " Camion y Cosas"{
          ladrillos.configurarCantidad(300)
          camion.cargar(ladrillos)
          assert.equals([800, 600],camion.pesos())
-     } 
+     }
+     test " Cantidad total de bultos caso 1 " {
+        contenedorPortuario.cargarCon(knightRider)
+        contenedorPortuario.cargarCon(bumblebee)
+        camion.cargar(contenedorPortuario)
+        embalajeDeSeguridad.embalar(residuosRadioactivos)
+        camion.cargar(embalajeDeSeguridad)
+        camion.cargar(arenaAGranel)
+        ladrillos.configurarCantidad(50)
+        camion.cargar(ladrillos)
+        camion.cargar(bateriaAntiaerea)
+        assert.equals(9, camion.cantidadTotalDeBultos())
+     }    
+    test " Cantidad total de bultos caso 2 " {
+        camion.cargar(contenedorPortuario)
+        ladrillos.configurarCantidad(150)
+        camion.cargar(ladrillos)
+        bateriaAntiaerea.ponerMisiles()
+        camion.cargar(bateriaAntiaerea)
+        assert.equals(5, camion.cantidadTotalDeBultos())
+    }
+    test " Cantidad total de bultos caso 3 " {
+        ladrillos.configurarCantidad(350)
+        camion.cargar(ladrillos)
+        camion.cargar(arenaAGranel)
+        assert.equals(4, camion.cantidadTotalDeBultos())
+
+        
+
+
+
+     }
 }
 
     

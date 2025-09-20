@@ -37,6 +37,8 @@ import cosas.*
 
 	method pesos() { return cosas.map { cosa => cosa.peso()}}
 
+	method cantidadTotalDeBultos(){ return cosas.sum{ cosa=>cosa.bultos()}}
+
 
  }
 
