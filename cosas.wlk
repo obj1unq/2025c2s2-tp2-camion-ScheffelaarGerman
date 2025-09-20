@@ -2,6 +2,7 @@ object knightRider {
 	method peso() { return 500 }
 	method nivelPeligrosidad() { return 10 }
 	method bultos(){return 1}
+	method efectosAccidente() {}
 }
 object arenaAGranel {
 	var peso = 0
@@ -9,6 +10,8 @@ object arenaAGranel {
 	method peso() { return peso }
 	method nivelPeligrosidad() { return 1 }
 	method bultos(){return 1}
+	method efectosAccidente(){self.configurarPeso(peso + 20)}
+
 }
 object bumblebee {
 	var esAuto = true
@@ -17,14 +20,16 @@ object bumblebee {
 	method peso() { return 800 }
 	method nivelPeligrosidad() { if (esAuto) {return 15} else {return 30} }
 	method bultos(){return 2}
+	method efectosAccidente() {if (esAuto){ self.transformarEnRobot()}else {self.transformarEnAuto()}}
 }
 object ladrillos {
 	var cantidad = 0
 	method configurarCantidad(_cantidad) { cantidad = _cantidad}
+	method cantidad() {return cantidad}
 	method peso() { return 2*cantidad }
 	method nivelPeligrosidad() { return 2 }
 	method bultos() {if (cantidad <= 100) {return 1} else if (cantidad <= 300) {return 2 } else {return 3} }
-
+	method efectosAccidente(){ if (cantidad> 12){ self.configurarCantidad(cantidad - 12 )}else {self.configurarCantidad(0)}}
 }
 object bateriaAntiaerea{
 	var estaConMisiles = false
@@ -33,13 +38,15 @@ object bateriaAntiaerea{
 	method peso() { if (estaConMisiles) {return 300} else {return 200}}
 	method nivelPeligrosidad(){ if (estaConMisiles){return 100} else {return 0} }
 	method bultos() { if (estaConMisiles) {return 2} else {return 1}}
+	method efectosAccidente(){self.sacarMisiles()}
 }
 object residuosRadioactivos{
 	var peso = 0
 	method configurarPeso(_peso){ peso= _peso}
 	method peso() { return peso}
 	method nivelPeligrosidad() { return 200}
-	method s(){return 1}
+	method bultos(){return 1}
+	method efectosAccidente(){ self.configurarPeso(peso + 15)}
 }
 object contenedorPortuario{
 	var property cosas = []
@@ -50,6 +57,7 @@ object contenedorPortuario{
 	method nivelPeligrosidad() { if (cosas.isEmpty()){ return 0} else {return self.maxNivelPeligrosidadEnLaCarga()} }
 	method maxNivelPeligrosidadEnLaCarga(){return cosas.max{cosa => cosa.nivelPeligrosidad()} }
 	method bultos(){return 1 + cosas.sum{cosa => cosa.bultos()}}
+	method efectosAccidente(){cosas.forEach{ cosa=> cosa.efectosAccidente()} }
 } 
 object embalajeDeSeguridad{
 	var contenido = null
@@ -57,4 +65,5 @@ object embalajeDeSeguridad{
 	method peso(){ return contenido.peso()}
 	method nivelPeligrosidad(){ return contenido.nivelPeligrosidad() / 2}
 	method bultos(){return 2}
+	method efectosAccidente(){}
 }

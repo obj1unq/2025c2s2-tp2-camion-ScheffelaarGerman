@@ -39,6 +39,8 @@ import cosas.*
 
 	method cantidadTotalDeBultos(){ return cosas.sum{ cosa=>cosa.bultos()}}
 
+	method sufrirAccidente(){cosas.forEach{cosa => cosa.efectosAccidente()}}
+
 
  }
 
