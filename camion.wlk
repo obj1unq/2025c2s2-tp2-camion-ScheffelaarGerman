@@ -41,6 +41,45 @@ import cosas.*
 
 	method sufrirAccidente(){cosas.forEach{cosa => cosa.efectosAccidente()}}
 
+	method descargarCamionEn(unLugar){unLugar.recibir(cosas) cosas.clear()}
 
- }
+	method transportar(destino, camino) {
+    self.validarTransporte(destino, camino)
+    self.descargarCamionEn(destino)
+	}
+	method validarTransporte(destino, camino) {
+   	 if (!camino.puedeSoportar(self)) {
+       	 self.error(
+            "El camión no puede transportar por " + camino.nombre() + ". " +
+            "En el destino queda: " + destino.cosasAlmacenadas() + ". " +
+            "En el vehículo queda: " + self.cosas() + "."
+        )
+     }
+	}
+}
+
+ //-- Destinos --//
+object almacen{
+	var property cosasAlmacenadas = #{}
+
+	method recibir(cargaDeCosas){ cosasAlmacenadas.addAll(cargaDeCosas)}
+}
+
+//-- Camionos --//
+object ruta9{
+	
+	method puedeSoportar(unCamion){ return unCamion.puedeCircularEnRuta(20)}
+	
+	method nombre() { return "Ruta 9"}
+}
+object caminosvecinales{
+	var pesoMaxSoportado =  0
+	
+	method configurarPesoMaxSoportado(peso) { pesoMaxSoportado = peso}
+	
+	method puedeSoportar(unCamion){  return unCamion.pesoTotalCamion() <= pesoMaxSoportado }
+
+	method nombre() { return "Caminos Vecinales"}
+}
+	
 
